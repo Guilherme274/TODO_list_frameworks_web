@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Tarefa } from '../tarefa';
 
 @Component({
   selector: 'app-item',
@@ -6,4 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './item.html',
   styleUrl: './item.css',
 })
-export class Item {}
+export class Item {
+  emEdicao = false;
+  @Input() tarefa: Tarefa = new Tarefa('', false);
+}
