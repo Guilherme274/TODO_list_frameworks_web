@@ -8,7 +8,7 @@
   <label [for]="tarefa.descricao">{{ tarefa.descricao }}</label>
   <div *ngIf="!emEdicao" class="btn-wrapper">
     <button class="btn" (click)="emEdicao = true">Editar</button>
-    <button class="btn btn-warn">Remover</button>
+    <button class="btn btn-warn" (click)="removeTarefa.emit()">Remover</button>
   </div>
   <div *ngIf="emEdicao">
     <input
