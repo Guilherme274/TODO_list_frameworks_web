@@ -17,6 +17,7 @@
       placeholder="escreva o novo nome da tarefa
 aqui"
       [value]="tarefa.descricao"
+      (keyup.enter)="tarefa.descricao = editedItem.value; emEdicao = false"
     />
     <div class="btn-wrapper">
       <button class="btn" (click)="emEdicao = false">Cancelar</button>
