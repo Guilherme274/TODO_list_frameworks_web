@@ -10,22 +10,26 @@ import { Tarefa } from "./tarefa";
 export class App {
   protected readonly title = signal('TODOapp');
 
-   arrayDeTarefas: Tarefa[] = [];
- constructor() {
- this.READ_tarefas();
- }
+  arrayDeTarefas: Tarefa[] = [];
+  constructor() {
+    this.READ_tarefas();
+  }
 
   CREATE_tarefa(descricaoNovaTarefa: string) {
- var novaTarefa = new Tarefa(descricaoNovaTarefa, false);
- this.arrayDeTarefas.unshift(novaTarefa);
- }
+    var novaTarefa = new Tarefa(descricaoNovaTarefa, false);
+    this.arrayDeTarefas.unshift(novaTarefa);
+  }
 
- READ_tarefas() {
- this.arrayDeTarefas = [
- new Tarefa("Estudar Frameworks WEB", false),
- new Tarefa("Comer Pizza", false),
- new Tarefa("Ajudar meus pais", false)
- ];
- }
+  READ_tarefas() {
+    this.arrayDeTarefas = [
+      new Tarefa("Estudar Frameworks WEB", false),
+      new Tarefa("Comer Pizza", false),
+      new Tarefa("Ajudar meus pais", false)
+    ];
+  }
+
+  DELETE_tarefa(tarefaParaRemover: Tarefa){
+    this.arrayDeTarefas.splice(this.arrayDeTarefas.indexOf(tarefaParaRemover), 1);
+  }
 
 }
