@@ -20,28 +20,37 @@ export class App {
 
   CREATE_tarefa(descricaoNovaTarefa: string) {
     var novaTarefa = new Tarefa(descricaoNovaTarefa, false);
-    this.http.post<Tarefa>(`${this.apiURL}/api/post`, novaTarefa).subscribe(
-      resultado => { console.log(resultado); this.READ_tarefas(); });
+    this.http.post<Tarefa>(`${this.apiURL}/api/post`, novaTarefa).subscribe({
+      next: resultado => { console.log('Tarefa criada:', resultado); this.READ_tarefas(); },
+      error: erro => console.error('Erro ao criar tarefa:', erro)
+    });
   }
 
   READ_tarefas() {
-    this.http.get<Tarefa[]>(`${this.apiURL}/api/getAll`).subscribe(
-      resultado => this.arrayDeTarefas.set(resultado));
+    this.http.get<Tarefa[]>(`${this.apiURL}/api/getAll`).subscribe({
+      next: resultado => this.arrayDeTarefas.set(resultado),
+      error: erro => console.error('Erro ao ler tarefas:', erro)
+    });
   }
 
   DELETE_tarefa(tarefaAserRemovida: Tarefa) {
-    var indice = this.arrayDeTarefas().indexOf(tarefaAserRemovida);
-    var id = this.arrayDeTarefas()[indice]._id;
-    this.http.delete<Tarefa>(`${this.apiURL}/api/delete/${id}`).subscribe(
-      resultado => { console.log(resultado); this.READ_tarefas(); });
+    const id = tarefaAserRemovida._id;
+    if (!id) return console.error('ID da tarefa não encontrado');
+    
+    this.http.delete<Tarefa>(`${this.apiURL}/api/delete/${id}`).subscribe({
+      next: resultado => { console.log('Tarefa removida:', resultado); this.READ_tarefas(); },
+      error: erro => console.error('Erro ao remover tarefa:', erro)
+    });
   }
 
   UPDATE_tarefa(tarefaAserModificada: Tarefa) {
-    var indice = this.arrayDeTarefas().indexOf(tarefaAserModificada);
-    var id = this.arrayDeTarefas()[indice]._id;
-    this.http.patch<Tarefa>(`${this.apiURL}/api/update/${id}`,
-      tarefaAserModificada).subscribe(
-        resultado => { console.log(resultado); this.READ_tarefas(); });
+    const id = tarefaAserModificada._id;
+    if (!id) return console.error('ID da tarefa não encontrado');
+
+    this.http.patch<Tarefa>(`${this.apiURL}/api/update/${id}`, tarefaAserModificada).subscribe({
+      next: resultado => { console.log('Tarefa atualizada:', resultado); this.READ_tarefas(); },
+      error: erro => console.error('Erro ao atualizar tarefa:', erro)
+    });
   }
 
 }

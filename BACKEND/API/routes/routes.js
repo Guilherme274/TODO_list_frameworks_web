@@ -43,10 +43,10 @@ router.delete('/delete/:id', async (req, res) => {
 router.patch('/update/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const novaTarefa = req.body;
+        const { _id, ...dadosParaAtualizar } = req.body;
         const options = { new: true };
         const result = await modeloTarefa.findByIdAndUpdate(
-            id, novaTarefa, options
+            id, dadosParaAtualizar, options
         )
         res.json(result)
     }
