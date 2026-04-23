@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Tarefa } from "./tarefa";
 import { HttpClient } from '@angular/common/http';
 
@@ -14,10 +15,12 @@ export class App {
   arrayDeTarefas = signal<Tarefa[]>([]);
   apiURL: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
     this.apiURL = 'https://apitarefas-guilherme254121-matheus257537.up.railway.app';
-    // Carrega a lista inicial do banco ao abrir o app
-    this.READ_tarefas();
+    // Carrega a lista apenas no navegador, ignorando o servidor SSR da Vercel
+    if (isPlatformBrowser(this.platformId)) {
+      this.READ_tarefas();
+    }
   }
 
   // 1. BUSCA INICIAL (Obrigatório para o app não iniciar vazio)
