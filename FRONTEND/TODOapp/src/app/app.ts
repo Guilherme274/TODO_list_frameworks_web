@@ -22,7 +22,7 @@ export class App {
 
   // 1. BUSCA INICIAL (Obrigatório para o app não iniciar vazio)
   READ_tarefas() {
-    this.http.get<Tarefa[]>(`${this.apiURL}/api/getAll`).subscribe({
+    this.http.get<Tarefa[]>(`${this.apiURL}/api/getAll?t=${new Date().getTime()}`).subscribe({
       next: resultado => this.arrayDeTarefas.set(resultado),
       error: erro => console.error('Erro ao ler tarefas:', erro)
     });
