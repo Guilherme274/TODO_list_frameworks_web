@@ -20,6 +20,7 @@ router.post('/post', async (req, res) => {
 
 router.get('/getAll', async (req, res) => {
     try {
+        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
         const resultados = await modeloTarefa.find();
         res.json(resultados)
     }
