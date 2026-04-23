@@ -14,7 +14,7 @@ export class App {
   arrayDeTarefas = signal<Tarefa[]>([]);
   apiURL: string;
   constructor(private http: HttpClient) {
-    this.apiURL = 'https://todoapp-guilherme-254121-matheus-257537.onrender.com';
+    this.apiURL = 'https://apitarefasguilherme-254121-matheus-257537.onrender.com';
     this.READ_tarefas();
   }
 
