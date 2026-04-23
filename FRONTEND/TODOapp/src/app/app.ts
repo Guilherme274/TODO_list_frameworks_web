@@ -14,7 +14,7 @@ export class App {
   arrayDeTarefas = signal<Tarefa[]>([]);
   apiURL: string;
   constructor(private http: HttpClient) {
-    this.apiURL = 'https://apitarefasguilherme-254121-matheus-257537.onrender.com';
+    this.apiURL = 'https://apitarefas-guilherme254121-matheus257537.up.railway.app';
     this.READ_tarefas();
   }
 
@@ -36,7 +36,7 @@ export class App {
   DELETE_tarefa(tarefaAserRemovida: Tarefa) {
     const id = tarefaAserRemovida._id;
     if (!id) return console.error('ID da tarefa não encontrado');
-    
+
     this.http.delete<Tarefa>(`${this.apiURL}/api/delete/${id}`).subscribe({
       next: resultado => { console.log('Tarefa removida:', resultado); this.READ_tarefas(); },
       error: erro => console.error('Erro ao remover tarefa:', erro)
