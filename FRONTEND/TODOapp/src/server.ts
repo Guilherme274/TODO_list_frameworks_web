@@ -39,6 +39,12 @@ app.use(
  * Handle all other requests by rendering the Angular application.
  */
 app.use((req, res, next) => {
+  // Desativar completamente o cache da página HTML para que o SSR sempre busque dados novos
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  res.set('Surrogate-Control', 'no-store');
+
   angularApp
     .handle(req)
     .then((response) =>
